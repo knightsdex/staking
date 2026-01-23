@@ -353,7 +353,7 @@ const StakingCard: React.FC = () => {
                                     <div className="flex-1 md:w-1/3">
                                         <p className="text-black dark:text-white font-[400] font-semibold text-light">Ranking Bonus System:</p>
                                         <ul className="list-disc pl-6 font-semibold text-light">
-                                            <li>Earn extra rewards by being a top staker! The top 3 stakers by total staked amount receive bonus rewards:</li>
+                                            <li>Earn extra rewards by being a top staker! <br></br> The top 3 stakers by total staked amount receive bonus rewards:</li>
                                             <li>Rank 1 (Highest Staker): +20% bonus on all rewards</li>
                                             <li>Rank 2 (Second Highest): +15% bonus on all rewards</li>
                                             <li>Rank 3 (Third Highest): +10% bonus on all rewards</li>
