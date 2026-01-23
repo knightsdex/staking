@@ -334,8 +334,8 @@ const StakingCard: React.FC = () => {
             <div className="w-full bg-primary-bg relative z-[10]">
                 <div className="w-full 2xl:w-[1280px] 2xl:mx-auto md:px-8 2xl:px-0 px-4 text-primary pt-20 gap-20">
                     <div className="w-full md:pt-[80px] pt-[30px] bg-primary-bg">
-                        <div className="space-y-6">
-                            <div className="rounded-3xl bg-[#FAFAFA] border border-[#D4D4D4] dark:bg-[#121212] dark:border-[#202020] mx-auto flex flex-col gap-6 md:px-6 md:py-8 p-6 w-full">
+                        <div className="space-y-4">
+                            <div className="rounded-3xl bg-[#FAFAFA] border border-[#D4D4D4] dark:bg-[#121212] dark:border-[#202020] mx-auto flex flex-col gap-6 md:px-6 md:py-8 p-6 w-full mb-5">
                                 <div className="text-black dark:text-white font-[400] font-semibold text-light">
                                     Understanding EVM Staking Epochs
                                 </div>
