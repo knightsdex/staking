@@ -79,7 +79,7 @@ const InfoCard = ({ disabled, label, value, stakeAction, unstakeAction, viewDeta
 
             </div>
             <div>
-                <div className={`font-bold ${label === 'reward' ? 'text-black text-5xl' : 'text-primary text-4xl'}`}>{label === 'duration' ? (value === '-' ? 0 : value) + (value === 1 ? ' Day' : ' Days') : (label === 'reward' && (!data.address || !staked)) ? 'Stake WMTx' : shortNumber(Number(value === '-' ? 0 : value)) + 'WMTx'}</div>
+                <div className={`font-bold ${label === 'reward' ? 'text-black text-5xl' : 'text-primary text-4xl'}`}>{label === 'duration' ? (value === '-' ? 0 : value) + (value === 1 ? ' Day Left' : ' Days Left') : (label === 'reward' && (!data.address || !staked)) ? 'Stake WMTx' : shortNumber(Number(value === '-' ? 0 : value)) + 'WMTx'}</div>
                 <div className={`text-sm font-semibold ${label === 'reward' ? 'text-black' : 'text-light'}`}>{label === 'duration' ? new Date().toLocaleString('en-US', { month: 'long' }) : shortNumber((Number(value === '-' ? 0 : value)) * price) + ' USD'}</div>
             </div>
             <div className="flex md:flex-row flex-col gap-4">
