@@ -66,7 +66,7 @@ const LeaderboardTable = () => {
                             </div>
                         )}
                         
-                        {stakersCount >= 3 && (
+                        {stakersCount >= 2 && (  // Changed from >= 3 to >= 2
                             <>
                                 <div className="w-full lg:flex hidden flex-col items-center relative bg-card-bg rounded-3xl overflow-hidden md:px-8 px-4 md:py-6 py-3">
                                     {/* Table Header */}
