@@ -340,27 +340,27 @@ const StakingCard: React.FC = () => {
                                     Understanding EVM Staking Epochs
                                 </div>
                                 <div className="flex flex-col md:flex-row gap-6 text-sm text-[#A3A3A3]">
-                                    <div className="flex-1 md:w-1/2">
+                                    <div className="flex-1 md:w-1/3">
                                         <p className="text-black dark:text-white font-[400] font-semibold text-light">Staking rewards are calculated in 1 month epoch. Here's how it works:</p>
+                                        <ul className="list-disc pl-6 font-semibold text-light">
+                                            <li>Your first epoch begins on the 1st of the month you stake</li>
+                                            <li>Each epoch runs for exactly 1 month</li>
+                                            <li>You only earn rewards for complete epochs</li>
+                                            <li>Rewards are distributed at the end of month</li>
+                                            <li>APR(Annual Percentage Rate) : 8%</li>
+                                        </ul>
+                                    </div>
+                                    <div className="flex-1 md:w-1/3">
+                                        <p className="text-black dark:text-white font-[400] font-semibold text-light">Ranking Bonus System:</p>
                                         <ul className="list-disc pl-6 font-semibold text-light">
                                             <li>Earn extra rewards by being a top staker! The top 3 stakers by total staked amount receive bonus rewards:</li>
                                             <li>Rank 1 (Highest Staker): +20% bonus on all rewards</li>
                                             <li>Rank 2 (Second Highest): +15% bonus on all rewards</li>
                                             <li>Rank 3 (Third Highest): +10% bonus on all rewards</li>
                                         </ul>
-                                            <p>Rankings are updated dynamically whenever stakes change, so your bonus may fluctuate as you and others stake or unstake tokens. The ranking bonus is applied on top of your base 8% annual reward rate.</p>
-
+                                         <p className="text-black dark:text-white font-[400] font-semibold text-light">Rankings are updated dynamically whenever stakes change, so your bonus may fluctuate as you and others stake or unstake tokens. The ranking bonus is applied on top of your base APR.</p>
                                     </div>
-                                    <div className="flex-1 md:w-1/2">
-                                        <p className="text-black dark:text-white font-[400] font-semibold text-light">Ranking Bonus System:</p>
-                                        <ul className="list-disc pl-6 font-semibold text-light">
-                                            <li>Your first epoch begins on the 1st of the month you stake</li>
-                                            <li>Each epoch runs for exactly 1 month</li>
-                                            <li>You only earn rewards for complete epochs</li>
-                                            <li>Rewards are distributed at the end of month</li>
-                                        </ul>
-                                    </div>
-                                    <div className="flex flex-col md:w-1/2 gap-2 font-semibold text-light">
+                                    <div className="flex flex-col md:w-1/3 gap-2 font-semibold text-light">
                                         <div className="flex flex-col">
                                             <p className="text-black dark:text-white font-[400] font-semibold text-light">Example:</p>
                                             <p>If you stake on June 10th, your first epoch will start on June 1st and end at the first day of the next month. Your first rewards will be available on July 1st. Your second epoch will then run until August 1st.</p>
