@@ -343,6 +343,17 @@ const StakingCard: React.FC = () => {
                                     <div className="flex-1 md:w-1/2">
                                         <p className="text-black dark:text-white font-[400] font-semibold text-light">Staking rewards are calculated in 1 month epoch. Here's how it works:</p>
                                         <ul className="list-disc pl-6 font-semibold text-light">
+                                            <li>Earn extra rewards by being a top staker! The top 3 stakers by total staked amount receive bonus rewards:</li>
+                                            <li>Rank 1 (Highest Staker): +20% bonus on all rewards</li>
+                                            <li>Rank 2 (Second Highest): +15% bonus on all rewards</li>
+                                            <li>Rank 3 (Third Highest): +10% bonus on all rewards</li>
+                                        </ul>
+                                            <p>Rankings are updated dynamically whenever stakes change, so your bonus may fluctuate as you and others stake or unstake tokens. The ranking bonus is applied on top of your base 8% annual reward rate.</p>
+
+                                    </div>
+                                    <div className="flex-1 md:w-1/2">
+                                        <p className="text-black dark:text-white font-[400] font-semibold text-light">Ranking Bonus System:</p>
+                                        <ul className="list-disc pl-6 font-semibold text-light">
                                             <li>Your first epoch begins on the 1st of the month you stake</li>
                                             <li>Each epoch runs for exactly 1 month</li>
                                             <li>You only earn rewards for complete epochs</li>
