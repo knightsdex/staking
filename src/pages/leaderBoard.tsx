@@ -145,7 +145,7 @@ const LeaderBoard: React.FC = () => {
                     {/* Content */}
                     <div className="relative flex flex-col items-start justify-start min-h-lvh text-white z-10 pt-20 gap-3">
                         {/* <div className="md:text-lg text-lg font-bold border border-white text-white rounded-tr-3xl rounded-bl-3xl w-max px-6 py-1 mt-10 mb:mt-20">Leaderboard</div> */}
-                        <div className="text-6xl 2xl:text-9xl xl:text-8xl lg:text-7xl md:text-5xl mt-5 mb:mt-20 lg:w-[95%] w-full text-primary font-semibold">Stake, rank up, and claim your rewards</div>
+                        <div className="text-6xl 2xl:text-9xl xl:text-8xl lg:text-7xl md:text-5xl mt-5 mb:mt-20 lg:w-[95%] w-full text-primary font-semibold">Top Stakers</div>
                         <LeaderboardTable />
                     </div>
                 </div>
