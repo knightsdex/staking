@@ -341,7 +341,7 @@ const StakingCard: React.FC = () => {
                                 </div>
                                 <div className="flex flex-col md:flex-row gap-6 text-sm text-[#A3A3A3]">
                                     <div className="flex-1 md:w-1/3">
-                                        <p className="text-black dark:text-white font-[400] font-semibold text-light">Staking rewards are calculated in 1 month epoch. Here's how it works:</p>
+                                        <p className="text-black dark:text-white font-[400] font-semibold text-light">Staking rewards are calculated in 1 month epoch.<br></br>Here's how it works:</p>
                                         <ul className="list-disc pl-6 font-semibold text-light">
                                             <li>Your first epoch begins on the 1st of the month you stake</li>
                                             <li>Each epoch runs for exactly 1 month</li>
@@ -362,7 +362,7 @@ const StakingCard: React.FC = () => {
                                     <div className="flex flex-col md:w-1/3 gap-2 font-semibold text-light">
                                         <div className="flex flex-col">
                                             <p className="text-black dark:text-white font-[400] font-semibold text-light">Example:</p>
-                                            <p>If you stake on June 10th, your first epoch will start on June 1st and end at the first day of the next month. Your first rewards will be available on July 1st. Your second epoch will then run until August 1st.</p>
+                                            <p>If you stake on June 10th, your first epoch will start on June 1st and end at the first day of the next month.<br></br>Your first rewards will be available on July 1st.<br></br>Your second epoch will then run until August 1st.</p>
                                         </div>
                                         <div>
                                             <span className="text-black dark:text-white font-[400] font-semibold text-light">Note: </span>
