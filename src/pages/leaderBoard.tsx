@@ -49,7 +49,9 @@ const LeaderboardTable = () => {
         }
     }, [error]);
 
-    const stakersCount = data?.stakers?.length || 0;
+    // Filter out stakers with 0 currentlyStaked
+    const filteredStakers = data?.stakers?.filter(staker => Number(staker.currentlyStaked) > 0) || [];
+    const stakersCount = filteredStakers.length;
 
     return (
         <>
@@ -58,9 +60,9 @@ const LeaderboardTable = () => {
                     <>
                         {stakersCount > 0 && (
                             <div className="flex flex-col md:flex-row lg:justify-center justify-around gap-6 items-center w-full pt-10 pb-10">
-                                {stakersCount >= 1 && <LeaderboardCard data={data?.stakers[0]} ranking={1} />}
-                                {stakersCount >= 2 && <LeaderboardCard data={data?.stakers[1]} ranking={2} />}
-                                {stakersCount >= 3 && <LeaderboardCard data={data?.stakers[2]} ranking={3} />}
+                                {stakersCount >= 1 && <LeaderboardCard data={filteredStakers[0]} ranking={1} />}
+                                {stakersCount >= 2 && <LeaderboardCard data={filteredStakers[1]} ranking={2} />}
+                                {stakersCount >= 3 && <LeaderboardCard data={filteredStakers[2]} ranking={3} />}
                             </div>
                         )}
                         
@@ -79,7 +81,7 @@ const LeaderboardTable = () => {
 
                                     {/* Scrollable Rows */}
                                     <div className="w-full overflow-y-auto">
-                                        {data?.stakers.map((row, index) => (
+                                        {filteredStakers.map((row, index) => (
                                             <div
                                                 key={index}
                                                 className={`w-full flex justify-between items-center md:px-6 px-1 py-4 text-light text-sm md:text-lg backdrop-blur border-t border-light-border`}
@@ -106,7 +108,7 @@ const LeaderboardTable = () => {
                                 </div>
                                 <div className="w-full lg:hidden flex flex-col relative bg-card-bg rounded-3xl overflow-hidden md:px-8 px-4 md:py-6 py-3">
                                     <div className="space-y-4 w-full">
-                                        {data?.stakers.map((row, index) => (
+                                        {filteredStakers.map((row, index) => (
                                             <div className="flex flex-row justify-between border-b border-b-light-border last:border-b-0 pb-4" key={index}>
                                                 <div className="flex flex-col space-y-4 justify-center text-primary">
                                                     <span className="">#</span>
@@ -150,7 +152,9 @@ const LeaderBoard: React.FC = () => {
         client,
     });
 
-    const stakersCount = data?.stakers?.length || 0;
+    // Filter out stakers with 0 currentlyStaked
+    const filteredStakers = data?.stakers?.filter(staker => Number(staker.currentlyStaked) > 0) || [];
+    const stakersCount = filteredStakers.length;
     const title = stakersCount === 0 ? "Let's Stake" : "Top Stakers";
 
     return (
