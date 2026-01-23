@@ -358,7 +358,6 @@ const StakingCard: React.FC = () => {
                                             <li>Rank 2 (Second Highest): +15% bonus on all rewards</li>
                                             <li>Rank 3 (Third Highest): +10% bonus on all rewards</li>
                                         </ul>
-                                         <p className="text-black dark:text-white font-[400] font-semibold text-light">Rankings are updated dynamically whenever stakes change, so your bonus may fluctuate as you and others stake or unstake tokens. The ranking bonus is applied on top of your base APR.</p>
                                     </div>
                                     <div className="flex flex-col md:w-1/3 gap-2 font-semibold text-light">
                                         <div className="flex flex-col">
