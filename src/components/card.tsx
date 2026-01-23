@@ -106,11 +106,23 @@ const StakingCard: React.FC = () => {
                 setStakingDuration(0)
             } else {
                 const currentTimeInSeconds = Math.floor(currentTime / 1000);
-                const duration = Math.floor((currentTimeInSeconds - startTime) / 3600 / 24);
+                const daysStaked = Math.floor((currentTimeInSeconds - startTime) / 3600 / 24);
+                
+                // Get the number of days in the current month
+                const currentDate = new Date();
+                const daysInCurrentMonth = new Date(
+                    currentDate.getFullYear(), 
+                    currentDate.getMonth() + 1, 
+                    0
+                ).getDate();
+                
+                // Calculate duration as days remaining in the month
+                const duration = daysInCurrentMonth - daysStaked;
+                
                 if (duration <= 0) {
-                    setStakingDuration(0)
+                    setStakingDuration(0);
                 } else {
-                    setStakingDuration(duration); // Replace with your logic for duration
+                    setStakingDuration(duration);
                 }
             }
             setStakeAmount(web3.utils.fromWei(stakeData.amount, "ether"));
