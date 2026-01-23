@@ -12,7 +12,7 @@ const faqData: FaqItem[] = [
     },
     {
         question: 'Is there a lock period?',
-        answer: 'There is a 7 day lock period, which starts when you add WMTx to the staking contract. It applies to your entire staked WMTx balance. During this time, you’ll earn WMTx as normal.'
+        answer: 'No, there is no lock period. You can unstake your tokens at any time. However, to receive rewards, your tokens must remain staked for the full epoch or snapshot. If you unstake early, you will forfeit any rewards for that period.'
     },
     {
         question: 'What can I use my WMTx for?',
