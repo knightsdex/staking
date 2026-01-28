@@ -43,7 +43,7 @@ const InfoCard = ({ disabled, label, value, stakeAction, viewDetail, balance, sh
     }
 
     return (
-        <div className={`rounded-3xl ${label === 'position' ? 'bg-[#fff533]' : 'bg-card-bg'} mx-auto flex flex-col gap-6 md:px-6 md:py-8 p-6 w-full`}>
+        <div className={`rounded-3xl ${label === 'position' ? 'bg-[#fff533]' : 'bg-[#4a4943]'} mx-auto flex flex-col gap-6 md:px-6 md:py-8 p-6 w-full`}>
             <div className="flex flex-row justify-between items-center">
                 <div className={`${label === 'position' ? 'text-black' : 'text-primary'} font-[400]`}>{getTitle()}</div>
                 <Popover
