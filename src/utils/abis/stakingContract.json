@@ -3,7 +3,7 @@
         "inputs": [
             {
                 "internalType": "contract IERC20",
-                "name": "_wmtToken",
+                "name": "_stakingToken",
                 "type": "address"
             }
         ],
@@ -34,22 +34,12 @@
     },
     {
         "inputs": [],
-        "name": "ContractIsStillActive",
-        "type": "error"
-    },
-    {
-        "inputs": [],
         "name": "EnforcedPause",
         "type": "error"
     },
     {
         "inputs": [],
         "name": "ExpectedPause",
-        "type": "error"
-    },
-    {
-        "inputs": [],
-        "name": "ExtendMultipliersPlease",
         "type": "error"
     },
     {
@@ -91,9 +81,35 @@
         "type": "error"
     },
     {
-        "inputs": [],
-        "name": "WrongAmount",
-        "type": "error"
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "additionalDays",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "newEndTime",
+                "type": "uint256"
+            }
+        ],
+        "name": "Extended",
+        "type": "event"
     },
     {
         "anonymous": false,
@@ -137,9 +153,27 @@
                 "type": "address"
             },
             {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            },
+            {
                 "indexed": false,
                 "internalType": "uint256",
                 "name": "amount",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "numDays",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "endTime",
                 "type": "uint256"
             }
         ],
@@ -169,18 +203,36 @@
                 "type": "address"
             },
             {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            },
+            {
                 "indexed": false,
                 "internalType": "uint256",
-                "name": "amount",
+                "name": "stakedAmount",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "reward",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "totalAmount",
                 "type": "uint256"
             }
         ],
-        "name": "Unstaked",
+        "name": "Withdrawn",
         "type": "event"
     },
     {
         "inputs": [],
-        "name": "PRECISION",
+        "name": "BP_DENOMINATOR",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -193,7 +245,7 @@
     },
     {
         "inputs": [],
-        "name": "REWARD_RATE",
+        "name": "DAILY_RATE_BP",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -206,7 +258,7 @@
     },
     {
         "inputs": [],
-        "name": "SECONDS_IN_MONTH",
+        "name": "MAX_DAYS",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -219,7 +271,7 @@
     },
     {
         "inputs": [],
-        "name": "SECONDS_IN_YEAR",
+        "name": "MAX_POSITIONS",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -234,8 +286,13 @@
         "inputs": [
             {
                 "internalType": "address",
-                "name": "_user",
+                "name": "user",
                 "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
             }
         ],
         "name": "calculateReward",
@@ -252,14 +309,267 @@
     {
         "inputs": [
             {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            }
+        ],
+        "name": "calculateTotalRewards",
+        "outputs": [
+            {
                 "internalType": "uint256",
-                "name": "months",
+                "name": "",
                 "type": "uint256"
             }
         ],
-        "name": "extendMultipiers",
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "token",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            }
+        ],
+        "name": "emergencyWithdraw",
         "outputs": [],
         "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "additionalDays",
+                "type": "uint256"
+            }
+        ],
+        "name": "extend",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "account",
+                "type": "address"
+            }
+        ],
+        "name": "getAllPositions",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "id",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "amount",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "startTime",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "endTime",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "numDays",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "withdrawn",
+                        "type": "bool"
+                    }
+                ],
+                "internalType": "struct DailyStakingContract.Position[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "account",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            }
+        ],
+        "name": "getPosition",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "id",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "amount",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "startTime",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "endTime",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "numDays",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "withdrawn",
+                        "type": "bool"
+                    }
+                ],
+                "internalType": "struct DailyStakingContract.Position",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "account",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "start",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "count",
+                "type": "uint256"
+            }
+        ],
+        "name": "getPositions",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "id",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "amount",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "startTime",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "endTime",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "numDays",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "withdrawn",
+                        "type": "bool"
+                    }
+                ],
+                "internalType": "struct DailyStakingContract.Position[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "account",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            }
+        ],
+        "name": "isUnlocked",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "account",
+                "type": "address"
+            }
+        ],
+        "name": "numPositions",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
         "type": "function"
     },
     {
@@ -273,19 +583,6 @@
             }
         ],
         "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_amount",
-                "type": "uint256"
-            }
-        ],
-        "name": "partialUnstake",
-        "outputs": [],
-        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -309,6 +606,55 @@
         "type": "function"
     },
     {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "positions",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "startTime",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "endTime",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "numDays",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "withdrawn",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
         "inputs": [],
         "name": "renounceOwnership",
         "outputs": [],
@@ -319,7 +665,12 @@
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "_amount",
+                "name": "amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "numDays",
                 "type": "uint256"
             }
         ],
@@ -329,37 +680,32 @@
         "type": "function"
     },
     {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "name": "stakes",
+        "inputs": [],
+        "name": "stakingToken",
         "outputs": [
             {
-                "internalType": "uint256",
-                "name": "startTime",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "rewardDebt",
-                "type": "uint256"
+                "internalType": "contract ERC20",
+                "name": "",
+                "type": "address"
             }
         ],
         "stateMutability": "view",
         "type": "function"
     },
     {
-        "inputs": [],
-        "name": "totalStake",
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "account",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            }
+        ],
+        "name": "timeUntilUnlock",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -391,40 +737,14 @@
         "type": "function"
     },
     {
-        "inputs": [],
-        "name": "unstake",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "unstakeWithoutRewards",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "withdrawRewardsByAdmin",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
         "inputs": [
             {
-                "internalType": "address",
-                "name": "tokenAddress",
-                "type": "address"
-            },
-            {
                 "internalType": "uint256",
-                "name": "amount",
+                "name": "id",
                 "type": "uint256"
             }
         ],
-        "name": "withdrawWronglySentTokens",
+        "name": "unstake",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"

@@ -12,7 +12,7 @@ const faqData: FaqItem[] = [
     },
     {
         question: 'Is there a lock period?',
-        answer: 'No, there is no lock period. You can unstake your tokens at any time. However, to receive rewards, your tokens must remain staked for the full epoch or snapshot. If you unstake early, you will forfeit any rewards for that period.'
+        answer: 'Yes, there is a lock period. Your tokens are completely locked until the staking period ends. You cannot withdraw early under any circumstances. You can extend your lock period.'
     },
     {
         question: 'What can I use my WMTx for?',

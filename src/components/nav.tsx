@@ -121,7 +121,7 @@ const Nav: React.FC = () => {
 					<Link to="/leaderboard" className={`hover:border-b hover:border-b-primary text-sm ${isActive("/leaderboard") ? "border-b border-b-primary" : ""
 
 						}`}>
-						Leaderboard
+						Positions
 					</Link>
 					<div
 						onClick={handleDark}

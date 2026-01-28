@@ -7,6 +7,7 @@ import Nav from "./components/nav";
 import Home from "./pages/home";
 import LeaderBoard from "./pages/leaderBoard";
 import { useWalletContext } from "./utils/context/walletContext";
+import LockDetail from "./pages/LockDetail";
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
 				<Routes>
 					<Route path='/' element={<Home />} />
 					<Route path='/leaderboard' element={<LeaderBoard />} />
+					<Route path='/lock/:id' element={<LockDetail />} />
 				</Routes>
 				<Footer />
 			</div>

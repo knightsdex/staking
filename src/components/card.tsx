@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Web3 from "web3";
-
+import LockDaysSlider from "./StepSlider";
 import contractABI from '../utils/abis/stakingContract.json';
 import tokenABI from '../utils/abis/token.json';
 
@@ -9,9 +9,23 @@ import { useWalletContext } from "../utils/context/walletContext";
 import { ConnectWalletButton } from "../utils/lib/connect-button";
 import InfoCard from "./InfoCard";
 import Modal from "./Modal";
+import PosModal from "./PosModal";
 import Alert from "./Alert";
-import { shortNumber } from "../pages/leaderBoard";
 // import WMT_video from '../assets/wmt.mp4'
+
+
+const MIN_DAYS = 1;
+const MAX_DAYS = 365;
+
+interface Position {
+    id: string;
+    amount: string;
+    startTime: string;
+    endTime: string;
+    numDays: string;
+    withdrawn: boolean;
+    reward: string;
+}
 
 
 const StakingCard: React.FC = () => {
@@ -20,14 +34,17 @@ const StakingCard: React.FC = () => {
     const [amount, setAmount] = useState<any>("");
     const [stakeAmount, setStakeAmount] = useState<number | string>("-");
     const [reward, setReward] = useState<number | string>("-");
-    const [stakingDuration, setStakingDuration] = useState<number | string>("-");
-    // const [lockMonths, setLockMonths] = useState<number>(1);
+    const [totalStakeAmount, setTotalStakeAmount] = useState<number | string>("-");
+    const [lockDuration, setLockDuration] = useState<number | string>("-");
+    const [days, setDays] = useState<number>(90);
+    const [posCount, setposCount] = useState<number | string>("-");
     const [modalStatus, setModalStatus] = useState('closed');
+    const [positions, setPositions] = useState<Position[]>([]);
+    const [posModalStatus, setPosModalStatus] = useState('closed');
     const [err, setErr] = useState({
         isErr: false, errMsg: ''
     });
     const [isMax, setIsMax] = useState<boolean>(true);
-    // const [isLocked, setIsLocked] = useState<boolean>(true);
     const { data } = useWalletContext();
 
 
@@ -53,6 +70,17 @@ const StakingCard: React.FC = () => {
         setIsMax(false);
     };
 
+    const handleInputChange = (value: number) => {
+        if (Number.isNaN(value)) return;
+
+        const clamped = Math.min(
+        MAX_DAYS,
+        Math.max(MIN_DAYS, value)
+        );
+
+        setDays(clamped);
+    };
+
     const handleMax = () => {
         if (isMax || !data.address) {
             setAmount('')
@@ -74,9 +102,11 @@ const StakingCard: React.FC = () => {
             if (!data.address) {
                 setStakeAmount('-');
                 setReward('-');
-                setStakingDuration('-');
+                setLockDuration('-');
                 setAmount('');
-                setBalance('-')
+                setBalance('-');
+                setposCount('-');
+                setPositions([]);
                 return
             }
 
@@ -97,44 +127,37 @@ const StakingCard: React.FC = () => {
             const tokenBalance: any = await tokenContract.methods.balanceOf(data.address).call();
             const formattedBalance = web3.utils.fromWei(tokenBalance, "ether"); // Convert from Wei to Ether for readability
             setBalance(formattedBalance);
-
+            const positionCount: any = await stakingContract.methods.numPositions(data.address).call();
+            setposCount(positionCount)
             // Fetch stake data from the contract
-            const stakeData: any = await stakingContract.methods.stakes(data.address).call();
-            const currentTime = Date.now();
-            const startTime: number = Number(web3.utils.fromWei(stakeData.startTime, 0));
-            if (startTime === 0) {
-                setStakingDuration(0)
-            } else {
-                const currentTimeInSeconds = Math.floor(currentTime / 1000);
-                const daysStaked = Math.floor((currentTimeInSeconds - startTime) / 3600 / 24);
-                
-                // Get the number of days in the current month
-                const currentDate = new Date();
-                const daysInCurrentMonth = new Date(
-                    currentDate.getFullYear(), 
-                    currentDate.getMonth() + 1, 
-                    0
-                ).getDate();
-                
-                // Calculate duration as days remaining in the month
-                const duration = daysInCurrentMonth - daysStaked;
-                
-                if (duration <= 0) {
-                    setStakingDuration(0);
-                } else {
-                    setStakingDuration(duration);
-                }
-            }
-            setStakeAmount(web3.utils.fromWei(stakeData.amount, "ether"));
-            const rawReward: any = await stakingContract.methods.calculateReward(data.address).call();
-            const finalReward = Number(web3.utils.fromWei(rawReward, 'ether'));
-            setReward(finalReward);
+            const allPositions: any = await stakingContract.methods.getAllPositions(data.address).call();
+            const formattedPositions: Position[] = await Promise.all(
+                allPositions.map(async (pos: any, index: number) => {
+                    // Calculate reward for this specific position using position id
+                    let reward = "0";
+                    try {
+                        const rawReward: any = await stakingContract.methods.calculateReward(data.address, pos[0]).call();
+                        reward = web3.utils.fromWei(rawReward, 'ether');
+                    } catch (error) {
+                        console.error(`Error calculating reward for position ${pos[0]}:`, error);
+                    }
 
-            // if (modalStatus === true) {
-            //     setAmount(formattedBalance);
-            // } else {
-            //     setAmount(web3.utils.fromWei(stakeData.amount, "ether"))
-            // }
+                    return {
+                        id: pos[0].toString(),
+                        amount: web3.utils.fromWei(pos[1].toString(), "ether"),
+                        startTime: pos[2].toString(),
+                        endTime: pos[3].toString(),
+                        numDays: pos[4].toString(),
+                        withdrawn: pos[5],
+                        reward: reward
+                    };
+                })
+            );
+            
+            setPositions(formattedPositions);
+            // Fetch the first position data for display
+            const totalStaked : any = await stakingContract.methods.calculateTotalRewards(data.address).call();
+            setTotalStakeAmount(totalStaked.toString());
 
         } catch (error) {
             console.error("Error fetching staking data:", error);
@@ -151,12 +174,9 @@ const StakingCard: React.FC = () => {
         setModalStatus('opened');
     }
 
-    const handleUnstakeAction = () => {
-        setActiveTab('unstake');
-        // setAmount(stakeAmount);
-        setModalStatus('opened');
+    const handleShowPosition = () => {
+        setPosModalStatus('opened');
     }
-
     const handleStake = async () => {
         if (!amount || isNaN(Number(amount)) || Number(amount) <= 0) {
             setErr({
@@ -212,9 +232,10 @@ const StakingCard: React.FC = () => {
             const approvalTx = await tokenContract.methods.approve(contractAddress, stakeAmount).send({ from: account });
             console.log("Approval transaction sent:", approvalTx.transactionHash);
 
+            
             // Call the stake function
-            const stakeTx = await stakingContract.methods.stake(stakeAmount).send({ from: account });
-            fetchStakingData();
+            const stakeTx = await stakingContract.methods.stake(stakeAmount, days).send({ from: account });
+            // fetchStakingData();
             console.log("Stake transaction sent:", stakeTx.transactionHash);
 
             setErr({
@@ -234,14 +255,7 @@ const StakingCard: React.FC = () => {
         }
     };
 
-    const handleUnstake = async () => {
-        if (!amount || isNaN(Number(amount)) || Number(amount) <= 0) {
-            setErr({
-                isErr: true,
-                errMsg: `Please enter a valid amount to unstake.`,
-            });
-            return;
-        }
+    const handleUnstake = async (id: string) => {
         try {
             // Ensure the wallet is connected
             if (!data.address) {
@@ -261,72 +275,95 @@ const StakingCard: React.FC = () => {
                 return;
             }
 
-            setModalStatus('loading');
+            setPosModalStatus('loading');
 
             // Initialize Web3
             const web3 = new Web3(window.ethereum);
-            await window.ethereum.request({ method: "eth_requestAccounts" }); // Request user accounts
+            await window.ethereum.request({ method: "eth_requestAccounts" });
             const accounts = await web3.eth.getAccounts();
-            const account = accounts[0]; // Get the user's account address
+            const account = accounts[0];
 
             const stakingContract = new web3.eth.Contract(contractABI, contractAddress);
 
-            // Check user's stake data (amount staked and rewards)
-            const stakeData: any = await stakingContract.methods.stakes(account).call();
-            const stakedAmount = stakeData.amount;
-            const stakedAmountDecimal = web3.utils.fromWei(stakedAmount, "ether");
-
-            if (Number(stakedAmountDecimal) === 0) {
+            // Find the position
+            const position = positions.find(pos => pos.id === id);
+            if (!position) {
                 setErr({
                     isErr: true,
-                    errMsg: `You don't have any tokens staked to withdraw.`,
+                    errMsg: `Position #${id} not found.`,
                 });
-                setAmount('')
-                setIsMax(false);
                 return;
             }
 
-            if (Number(amount) > Number(stakedAmountDecimal)) {
+            // Check if already withdrawn
+            if (position.withdrawn) {
                 setErr({
                     isErr: true,
-                    errMsg: `You have insufficient stake to withdraw !!!`,
+                    errMsg: `Position #${id} has already been withdrawn.`,
                 });
-                setAmount('')
-                setIsMax(false);
                 return;
             }
 
-            if (Number(stakedAmountDecimal) === Number(amount)) {
-                // unstake call from the staking contract
-                const unstakeTx = await stakingContract.methods.unstake().send({ from: account });
-                console.log("Unstake transaction sent:", unstakeTx.transactionHash);
-            } else {
-                // partialUnstake call from the staking contract
-                const stakeAmount = web3.utils.toWei(amount, "ether");
-                const unstakeTx = await stakingContract.methods.partialUnstake(stakeAmount).send({ from: account });
-                console.log("Unstake transaction sent:", unstakeTx.transactionHash);
+            // Check if lock period has ended
+            const currentTime = Math.floor(Date.now() / 1000);
+            if (currentTime < Number(position.endTime)) {
+                const unlockDate = new Date(Number(position.endTime) * 1000);
+                setErr({
+                    isErr: true,
+                    errMsg: `Lock period has not ended yet. Unlock date: ${unlockDate.toLocaleString()}`,
+                });
+                return;
             }
-            fetchStakingData();
+
+            // Call unstake function with position id
+            const unstakeTx = await stakingContract.methods.unstake(id).send({ from: account });
+            console.log("Unstake transaction sent:", unstakeTx.transactionHash);
+
+            // Refresh staking data
+            await fetchStakingData();
+
             setErr({
                 isErr: true,
-                errMsg: `Tokens unstaked successfully!`,
+                errMsg: `Position #${id} unstaked successfully! Transaction: ${unstakeTx.transactionHash}`,
             });
-            setAmount('')
-            setIsMax(false)
-        } catch (error) {
+
+            // Close the positions modal
+            setPosModalStatus('closed');
+
+        } catch (error: any) {
             console.error("Error during unstaking:", error);
+            
+            let errorMessage = "An error occurred during unstaking. Please try again.";
+            
+            // Handle specific error messages from the contract
+            if (error.message) {
+                if (error.message.includes("Position not found")) {
+                    errorMessage = "Position not found in the contract.";
+                } else if (error.message.includes("Already withdrawn")) {
+                    errorMessage = "This position has already been withdrawn.";
+                } else if (error.message.includes("Lock period not ended")) {
+                    errorMessage = "Lock period has not ended yet.";
+                } else if (error.message.includes("User denied")) {
+                    errorMessage = "Transaction was rejected by user.";
+                }
+            }
+            
             setErr({
                 isErr: true,
-                errMsg: `An error occurred during unstaking. Please try again.`,
+                errMsg: errorMessage,
             });
         } finally {
-            handleCloseModal();
+            setPosModalStatus('closed');
         }
     };
 
     const handleCloseModal = () => {
         setModalStatus('closed');
         setAmount('')
+    }
+
+    const handleClosePosModal = () => {
+        setPosModalStatus('closed');
     }
 
     return (
@@ -340,41 +377,30 @@ const StakingCard: React.FC = () => {
                                     Understanding EVM Staking Epochs
                                 </div>
                                 <div className="flex flex-col md:flex-row gap-6 text-sm text-[#A3A3A3]">
-                                    <div className="flex-1 md:w-1/3">
-                                        <p className="text-black dark:text-white font-[400] font-semibold text-light">Staking rewards are calculated in 1 month epoch.<br></br>Here's how it works:</p>
+                                    <div className="flex-1 md:w-1/2">
+                                        <p className="text-black dark:text-white font-[400] font-semibold text-light">Staking rewards are calculated in 1 day epoch.<br></br>Here's how it works:</p>
                                         <ul className="list-disc pl-6 font-semibold text-light">
-                                            <li>Your first epoch begins on the 1st of the month you stake</li>
-                                            <li>Each epoch runs for exactly 1 month</li>
+                                            <li>Your first epoch begins on the time you stake</li>
+                                            <li>Each epoch runs for exactly 1 day</li>
                                             <li>You only earn rewards for complete epochs</li>
-                                            <li>Rewards are distributed at the end of month</li>
-                                            <li>APR(Annual Percentage Rate) : 8%</li>
+                                            <li>APR(Annual Percentage Rate) : 98.55%</li>
                                         </ul>
                                     </div>
-                                    <div className="flex-1 md:w-1/3">
-                                        <p className="text-black dark:text-white font-[400] font-semibold text-light">Ranking Bonus System:</p>
-                                        <ul className="list-disc pl-6 font-semibold text-light">
-                                            <li>Earn extra rewards by being a top staker! <br></br> The top 3 stakers by total staked amount receive bonus rewards:</li>
-                                            <li>Rank 1 (Highest Staker): +20% bonus on all rewards</li>
-                                            <li>Rank 2 (Second Highest): +15% bonus on all rewards</li>
-                                            <li>Rank 3 (Third Highest): +10% bonus on all rewards</li>
-                                        </ul>
-                                    </div>
-                                    <div className="flex flex-col md:w-1/3 gap-2 font-semibold text-light">
+                                    <div className="flex flex-col md:w-1/2 gap-2 font-semibold text-light">
                                         <div className="flex flex-col">
                                             <p className="text-black dark:text-white font-[400] font-semibold text-light">Example:</p>
-                                            <p>If you stake on June 10th, your first epoch will start on June 1st and end at the first day of the next month.<br></br>Your first rewards will be available on July 1st.<br></br>Your second epoch will then run until August 1st.</p>
-                                        </div>
-                                        <div>
-                                            <span className="text-black dark:text-white font-[400] font-semibold text-light">Note: </span>
-                                            <span>Your personal epoch schedule is based on when you first stake, so your reward dates may differ from other users.</span>
+                                            <p>If you stake 1,000 WMTx tokens for 30 days on June 10th at 2:00 PM, here's what happens:<br></br>Stake Date: June 10th, 2:00 PM<br></br>Lock Period Ends: July 10th, 2:00 PM (exactly 30 days later)<br></br>Your Reward: 81 WMTx tokens (1,000 × 30 days × 0.27% = 81 WMTx)<br></br>Total When Unstaking: 1,081 WMTx tokens</p>
+                                            
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className="space-y-6">
-                            <InfoCard disabled={!data?.address} label='reward' value={reward} viewDetail={`https://sepolia.etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} stakeAction={handleStakeAction} unstakeAction={handleUnstakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
-                            <div className="flex lg:hidden lg:flex-row flex-col gap-6">
+                            <InfoCard disabled={!data?.address} label='position' value={posCount} viewDetail={`https://sepolia.etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} stakeAction={handleStakeAction} showPositions = {handleShowPosition} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
+                            <InfoCard disabled={!data?.address} label='stake' value={balance} viewDetail={`https://sepolia.etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} stakeAction={handleStakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
+                            
+                            {/* <div className="flex lg:hidden lg:flex-row flex-col gap-6">
                                 <div className="flex md:flex-row flex-col gap-6">
                                     <InfoCard disabled={!data?.address} label='stake' value={stakeAmount} viewDetail={`https://sepolia.etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} stakeAction={handleStakeAction} unstakeAction={handleUnstakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
                                     <InfoCard disabled={!data?.address} label='duration' value={stakingDuration} viewDetail={`https://sepolia.etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} />
@@ -385,7 +411,7 @@ const StakingCard: React.FC = () => {
                                 <InfoCard disabled={!data?.address} label='stake' value={stakeAmount} viewDetail={`https://sepolia.etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} stakeAction={handleStakeAction} unstakeAction={handleUnstakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
                                 <InfoCard disabled={!data?.address} label='duration' value={stakingDuration} viewDetail={`https://sepolia.etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} />
                                 <InfoCard disabled={!data?.address} label='balance' value={balance} viewDetail={`https://sepolia.etherscan.io/address/${data?.address}`} stakeAction={handleStakeAction} unstakeAction={handleUnstakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
@@ -414,58 +440,29 @@ const StakingCard: React.FC = () => {
                             </button>
                         </div>
                     </div>
-                </div>
-                {/* <div className="flex flex-col w-full gap-1">
-                    <div className="text-primary">Lock Duration</div>
                     <div className="flex flex-row items-center justify-between border border-[#5b5b5b] rounded-lg pr-4 bg-card-bg">
-                        <select
-                            value={lockMonths}
-                            onChange={(e) => setLockMonths(Number(e.target.value))}
-                            className="w-full h-11 px-3 pr-8 font-semibold border-none bg-inherit focus:ring-0 outline-none text-primary appearance-none"
-                        >
-                            {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
-                                <option key={month} value={month}>
-                                    {month}
-                                </option>
-                            ))}
-                        </select>
+                        <input
+                            type="number"
+                            min={MIN_DAYS}
+                            max={MAX_DAYS}
+                            value={days}
+                            onChange={(e) => handleInputChange(Number(e.target.value))}
+                            className="w-full font-semibold placeholder:text-[#5b5b5b] border-none bg-inherit focus:ring-0 outline-none rounded-lg text-primary"
+                        />
                         <div className="flex flex-row gap-2 items-center">
-                            <div className="text-primary">Months</div>
-                            <button className="text-black px-3 py-[1px] bg-[#fff533] rounded-2xl cursor-pointer disabled:cursor-not-allowed disabled:bg-[#5b5b5b] text-sm">
-                                {
-                                    isMax ? 'Lock' : 'Locked'
-                                }
-                            </button>
+                            <div className="text-primary">Days</div>
                         </div>
                     </div>
-                </div> */}
-                <div className="flex flex-col gap-4 w-full">
-                    <div className="flex flex-col gap-4 rounded-xl">
-                        <div className="flex flex-row justify-between text-sm">
-                            <div className="flex flex-row gap-2 items-center text-[#A3A3A3]">
-                                Total Staked
-                            </div>
-                            <p className="text-primary">{shortNumber(Number(stakeAmount))} WMTx</p>
-                        </div>
-
-                        <div className="flex flex-row justify-between text-sm">
-                            <div className="flex flex-row gap-2 items-center text-[#A3A3A3]">
-                                <p>My Reward</p>
-                            </div>
-                            <p className="text-primary">{shortNumber(Number(reward))} WMTx</p>
-                        </div>
-
-                        <div className="flex flex-row justify-between text-sm">
-                            <div className="flex flex-row gap-2 items-center text-[#A3A3A3]">
-                                <p>Staking Duration</p>
-                            </div>
-                            <p className="text-primary">{stakingDuration} Days</p>
-                        </div>
-                    </div>
+                </div>
+                <div className="flex flex-col w-full gap-1">
+                    <LockDaysSlider
+                        days={days}
+                        onChange={handleInputChange}
+                    />
                 </div>
                 {
                     data.address ?
-                        <button className={`rounded-3xl py-2 px-4 text-[16px] bg-[#fff533] text-black hover:text-[#5b5b5b] font-bold flex flex-row items-center justify-center gap-1 w-max`} onClick={activeTab === 'stake' ? handleStake : handleUnstake}>
+                        <button className={`rounded-3xl py-2 px-4 text-[16px] bg-[#fff533] text-black hover:text-[#5b5b5b] font-bold flex flex-row items-center justify-center gap-1 w-max`} onClick={handleStake}>
                             <div>
                                 {activeTab === 'stake' ? 'Stake WMTx' : 'Unstake WMTx'}
                             </div>
@@ -475,6 +472,12 @@ const StakingCard: React.FC = () => {
                         </div>
                 }
             </Modal>
+            <PosModal 
+                isOpen={posModalStatus} 
+                onClose={handleClosePosModal} 
+                positions={positions}
+                handleUnstake={handleUnstake}
+            />
             {err.isErr && <Alert data={err.errMsg} onClose={() => setErr({ isErr: false, errMsg: '' })} />}
         </>
 
