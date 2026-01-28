@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import Web3 from "web3";
 import Spinner from "../components/Spinner";
 import contractABI from '../utils/abis/stakingContract.json';
-import tokenABI from '../utils/abis/token.json';
 import { useState } from "react";
 import Alert from "../components/Alert";
 import { useWalletContext } from "../utils/context/walletContext";
@@ -128,7 +127,7 @@ const LeaderboardTable = () => {
             const stakingContract = new web3.eth.Contract(contractABI, contractAddress);
             const allPositions: any = await stakingContract.methods.getAllPositions(data.address).call();
             const formattedPositions: Position[] = await Promise.all(
-                allPositions.map(async (pos: any, index: number) => {
+                allPositions.map(async (pos: any) => {
                     // Calculate reward for this specific position using position id
                     let reward = "0";
                     try {

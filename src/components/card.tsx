@@ -33,9 +33,6 @@ const StakingCard: React.FC = () => {
     const [balance, setBalance] = useState<number | string>("-");
     const [amount, setAmount] = useState<any>("");
     const [stakeAmount, setStakeAmount] = useState<number | string>("-");
-    const [reward, setReward] = useState<number | string>("-");
-    const [totalStakeAmount, setTotalStakeAmount] = useState<number | string>("-");
-    const [lockDuration, setLockDuration] = useState<number | string>("-");
     const [days, setDays] = useState<number>(90);
     const [posCount, setposCount] = useState<number | string>("-");
     const [modalStatus, setModalStatus] = useState('closed');
@@ -101,8 +98,6 @@ const StakingCard: React.FC = () => {
         try {
             if (!data.address) {
                 setStakeAmount('-');
-                setReward('-');
-                setLockDuration('-');
                 setAmount('');
                 setBalance('-');
                 setposCount('-');
@@ -132,7 +127,7 @@ const StakingCard: React.FC = () => {
             // Fetch stake data from the contract
             const allPositions: any = await stakingContract.methods.getAllPositions(data.address).call();
             const formattedPositions: Position[] = await Promise.all(
-                allPositions.map(async (pos: any, index: number) => {
+                allPositions.map(async (pos: any) => {
                     // Calculate reward for this specific position using position id
                     let reward = "0";
                     try {
@@ -155,9 +150,6 @@ const StakingCard: React.FC = () => {
             );
             
             setPositions(formattedPositions);
-            // Fetch the first position data for display
-            const totalStaked : any = await stakingContract.methods.calculateTotalRewards(data.address).call();
-            setTotalStakeAmount(totalStaked.toString());
 
         } catch (error) {
             console.error("Error fetching staking data:", error);

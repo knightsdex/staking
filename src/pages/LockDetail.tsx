@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import LockDaysSlider from "../components/StepSlider";
 import contractABI from '../utils/abis/stakingContract.json';
-import tokenABI from '../utils/abis/token.json';
 import Web3 from "web3";
 
 interface Position {
@@ -27,7 +26,6 @@ const LockDetail: React.FC = () => {
     const [selectedTimeOption, setSelectedTimeOption] = useState<string>('');
     const position = location.state?.position as Position | undefined;
     const contractAddress = import.meta.env.VITE_STAKE_CA;
-    const tokenContractAddress = import.meta.env.VITE_TOKEN_CA;
 
     const timeOptions = [
         { label: '1W', days: 7 },

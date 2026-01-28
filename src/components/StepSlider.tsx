@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 type Step = {
   label: string;
   days: number;
