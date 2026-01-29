@@ -154,7 +154,7 @@ const Nav: React.FC = () => {
 			{isMenuOpen && (
 				<div className="absolute top-[60px] left-0 w-full bg-primary-bg z-50 h-[calc(100vh-60px)] flex flex-col justify-between py-8 px-4">
 					<nav className="flex flex-col space-y-6 pb-8">
-						<div className="text-xl">Stake BZIL</div>
+						<div className="text-xl">Stake BULLZILLA</div>
 						<Link
 							to="/"
 							className={`text-xl hover:text-gray-300 pl-4 ${isActive("/") ? "" : ""
@@ -192,7 +192,7 @@ const Nav: React.FC = () => {
 						<div className={`px-8 py-4 h-[76px] rounded-xl  flex flex-row gap-4 bg-card-bg`}>
 							<WalletIcon />
 							<div className="flex flex-col">
-								<div className=" text-lg font-bold">{shortNumber(balance)} BZIL</div>
+								<div className=" text-lg font-bold">{shortNumber(balance)} BULLZILLA</div>
 								<div className="text-sm text-light">Wallet balance</div>
 							</div>
 						</div>

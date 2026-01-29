@@ -27,13 +27,13 @@ const InfoCard = ({ disabled, label, value, stakeAction, viewDetail, balance, sh
     const getHint = () => {
         switch (label) {
             case "position":
-                return "Your positions of BZIL tokens based in your total staked amount and staking duration.";
+                return "Your positions of BULLZILLA tokens based in your total staked amount and staking duration.";
             case "stake":
                 return "Total balance of your wallet";
             case "canstake":
-                return "Your available amount of BZIL to stake. It is just your wallet balance of BZIL";
+                return "Your available amount of BULLZILLA to stake. It is just your wallet balance of BULLZILLA";
             case "canunstake":
-                return "Your available amount of BZIL to unstake. It is just amount of your staked BZIL tokens";
+                return "Your available amount of BULLZILLA to unstake. It is just amount of your staked BULLZILLA tokens";
             default:
                 return "Coming soon !";
         }
@@ -57,7 +57,7 @@ const InfoCard = ({ disabled, label, value, stakeAction, viewDetail, balance, sh
             </div>
             <div className="flex items-center w-full relative">
                 <div className="w-full">
-                    <div className={`font-bold ${label === 'position' ? 'text-black text-5xl' : 'text-primary text-4xl'}`}>{(label === 'position' && (!data.address || !balance)) ? 'Stake BZIL' : shortNumber(Number(value === '-' ? 0 : value)) + 'BZIL'}</div>
+                    <div className={`font-bold ${label === 'position' ? 'text-black text-5xl' : 'text-primary text-4xl'}`}>{(label === 'position' && (!data.address || !balance)) ? 'Stake BULLZILLA' : shortNumber(Number(value === '-' ? 0 : value)) + 'BULLZILLA'}</div>
                     <div className={`text-sm font-semibold ${label === 'position' ? 'text-black' : 'text-light'}`}>{label === 'stake' || label == 'canstake' ? '' : shortNumber((Number(value === '-' ? 0 : value))) + ' Positions'}</div>
                 </div>
                 <div className="absolute left-3/4 top-1/2 -translate-x-1/2 -translate-y-1/2">

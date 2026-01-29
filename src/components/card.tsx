@@ -389,7 +389,7 @@ const StakingCard: React.FC = () => {
                                     <div className="flex flex-col md:w-1/2 gap-2 font-semibold text-[#FAFAFA] relative z-10">
                                         <div className="flex flex-col">
                                             <p className="dark:text-[#004450] font-[400] font-semibold text-[#FAFAFA]">Example:</p>
-                                            <p className="dark:text-[#004450]">If you stake 1,000 BZIL tokens for 30 days on June 10th at 2:00 PM, here's what happens:<br></br>Stake Date: June 10th, 2:00 PM<br></br>Lock Period Ends: July 10th, 2:00 PM (exactly 30 days later)<br></br>Your Reward: 57 BZIL tokens (1,000 × 30 days × 0.19% = 57 BZIL)<br></br>Total When Unstaking: 1,057 BZIL tokens</p>
+                                            <p className="dark:text-[#004450]">If you stake 1,000 BULLZILLA tokens for 30 days on June 10th at 2:00 PM, here's what happens:<br></br>Stake Date: June 10th, 2:00 PM<br></br>Lock Period Ends: July 10th, 2:00 PM (exactly 30 days later)<br></br>Your Reward: 57 BULLZILLA tokens (1,000 × 30 days × 0.19% = 57 BULLZILLA)<br></br>Total When Unstaking: 1,057 BULLZILLA tokens</p>
                                         </div>
                                     </div>
                                 </div>
@@ -416,7 +416,7 @@ const StakingCard: React.FC = () => {
                 </div>
             </div>
             <Modal isOpen={modalStatus} onClose={handleCloseModal}>
-                <h2 className="text-xl font-semibold text-primary">{activeTab === 'stake' ? 'Stake BZIL' : 'Unstake BZIL'}</h2>
+                <h2 className="text-xl font-semibold text-primary">{activeTab === 'stake' ? 'Stake BULLZILLA' : 'Unstake BULLZILLA'}</h2>
                 <InfoCard label={activeTab === 'stake' ? 'canstake' : 'canunstake'} value={activeTab === 'stake' ? balance : stakeAmount} />
                 <div className="flex flex-col w-full gap-1">
                     <div className="text-primary">Amount to {activeTab === 'stake' ? 'stake' : 'unstake'}</div>
@@ -431,7 +431,7 @@ const StakingCard: React.FC = () => {
                             pattern="\d*\.?\d*"
                         />
                         <div className="flex flex-row gap-2 items-center">
-                            <div className="text-primary">BZIL</div>
+                            <div className="text-primary">BULLZILLA</div>
                             <button disabled={(activeTab === 'stake' && (balance === '0' || balance === '-')) || (activeTab === 'unstake' && (stakeAmount === '0' || stakeAmount === '-'))} onClick={handleMax} className="text-black px-3 py-[1px] bg-[#fff533] rounded-2xl cursor-pointer disabled:cursor-not-allowed disabled:bg-[#5b5b5b] text-sm">
                                 {
                                     isMax ? 'Clear' : 'Max'
@@ -463,7 +463,7 @@ const StakingCard: React.FC = () => {
                     data.address ?
                         <button className={`rounded-3xl py-2 px-4 text-[16px] bg-[#fff533] text-black hover:text-[#5b5b5b] font-bold flex flex-row items-center justify-center gap-1 w-max`} onClick={handleStake}>
                             <div>
-                                {activeTab === 'stake' ? 'Stake BZIL' : 'Unstake BZIL'}
+                                {activeTab === 'stake' ? 'Stake BULLZILLA' : 'Unstake BULLZILLA'}
                             </div>
                         </button> :
                         <div className="flex items-center justify-center w-full">
