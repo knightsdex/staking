@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Check, SendHorizonalIcon } from 'lucide-react';
+import { SendHorizonalIcon } from 'lucide-react';
 
-import Watermark from '../assets/img/watermark.png'
-import Youtube_icon from '../assets/img/youtube-icon.png'
 import X_icon from '../assets/img/x-icon.png'
-import Linkedin_icon from '../assets/img/linkedin-icon.png'
-import Instagram_icon from '../assets/img/instagram-icon.png'
-import Facebook_icon from '../assets/img/facebook-icon.png'
-import Reddit_icon from '../assets/img/reddit-icon.png'
-import Discord_icon from '../assets/img/discord-icon.png'
+
 import Telegram_icon from '../assets/img/telegram-icon.png'
 
 const Footer: React.FC = () => {
@@ -18,9 +12,6 @@ const Footer: React.FC = () => {
     const [email, setEmail] = useState('')
     const [errMsg, setErrMsg] = useState('')
 
-    const handleAcceptTerms = () => {
-        setIsAccepted(!isAccepted);
-    }
 
     const handleInputAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -94,14 +85,14 @@ const Footer: React.FC = () => {
                         <div className='space-y-6'>
                             <div className='text-[18px] font-semibold'>Follow us</div>
                             <div className='flex flex-row md:gap-6 justify-between md:justify-start'>
-                                <a href="https://twitter.com/WorldMobileTeam/" target="_blank" rel="noopener noreferrer">
+                                <a href="https://x.com/BullzillaERC/" target="_blank" rel="noopener noreferrer">
                                     <img src={X_icon} alt='social-icon' />
                                 </a>
-                                <a href="https://t.me/WorldMobileTeam" target="_blank" rel="noopener noreferrer">
+                                <a href="https://t.me/BullzillaERC" target="_blank" rel="noopener noreferrer">
                                     <img src={Telegram_icon} alt='social-icon' />
                                 </a>
                             </div>
-                            <div className='text-[#A3A3A3]'>© 2025 World Mobile All rights reserved.</div>
+                            <div className='text-[#A3A3A3]'>© 2026 World Mobile All rights reserved.</div>
                         </div>
                     </div>
                 </div>
