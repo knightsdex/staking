@@ -396,20 +396,20 @@ const StakingCard: React.FC = () => {
                             </div>
                         </div>
                         <div className="space-y-6">
-                            <InfoCard disabled={!data?.address} label='position' value={posCount} viewDetail={`https://sepolia.etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} stakeAction={handleStakeAction} showPositions = {handleShowPosition} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
-                            <InfoCard disabled={!data?.address} label='stake' value={balance} viewDetail={`https://sepolia.etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} stakeAction={handleStakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
+                            <InfoCard disabled={!data?.address} label='position' value={posCount} viewDetail={`https://etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} stakeAction={handleStakeAction} showPositions = {handleShowPosition} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
+                            <InfoCard disabled={!data?.address} label='stake' value={balance} viewDetail={`https://etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} stakeAction={handleStakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
                             
                             {/* <div className="flex lg:hidden lg:flex-row flex-col gap-6">
                                 <div className="flex md:flex-row flex-col gap-6">
-                                    <InfoCard disabled={!data?.address} label='stake' value={stakeAmount} viewDetail={`https://sepolia.etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} stakeAction={handleStakeAction} unstakeAction={handleUnstakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
-                                    <InfoCard disabled={!data?.address} label='duration' value={stakingDuration} viewDetail={`https://sepolia.etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} />
+                                    <InfoCard disabled={!data?.address} label='stake' value={stakeAmount} viewDetail={`https://etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} stakeAction={handleStakeAction} unstakeAction={handleUnstakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
+                                    <InfoCard disabled={!data?.address} label='duration' value={stakingDuration} viewDetail={`https://etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} />
                                 </div>
-                                <InfoCard disabled={!data?.address} label='balance' value={balance} viewDetail={`https://sepolia.etherscan.io/address/${data?.address}`} stakeAction={handleStakeAction} unstakeAction={handleUnstakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
+                                <InfoCard disabled={!data?.address} label='balance' value={balance} viewDetail={`https://etherscan.io/address/${data?.address}`} stakeAction={handleStakeAction} unstakeAction={handleUnstakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
                             </div>
                             <div className="hidden lg:flex lg:flex-row gap-6">
-                                <InfoCard disabled={!data?.address} label='stake' value={stakeAmount} viewDetail={`https://sepolia.etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} stakeAction={handleStakeAction} unstakeAction={handleUnstakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
-                                <InfoCard disabled={!data?.address} label='duration' value={stakingDuration} viewDetail={`https://sepolia.etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} />
-                                <InfoCard disabled={!data?.address} label='balance' value={balance} viewDetail={`https://sepolia.etherscan.io/address/${data?.address}`} stakeAction={handleStakeAction} unstakeAction={handleUnstakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
+                                <InfoCard disabled={!data?.address} label='stake' value={stakeAmount} viewDetail={`https://etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} stakeAction={handleStakeAction} unstakeAction={handleUnstakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
+                                <InfoCard disabled={!data?.address} label='duration' value={stakingDuration} viewDetail={`https://etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} />
+                                <InfoCard disabled={!data?.address} label='balance' value={balance} viewDetail={`https://etherscan.io/address/${data?.address}`} stakeAction={handleStakeAction} unstakeAction={handleUnstakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
                             </div> */}
                         </div>
                     </div>
