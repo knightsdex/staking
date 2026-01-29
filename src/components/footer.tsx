@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { SendHorizonalIcon } from 'lucide-react';
+<<<<<<< HEAD
 
 import X_icon from '../assets/img/x-icon.png'
 
+=======
+import X_icon from '../assets/img/x-icon.png'
+>>>>>>> f1b2f516983a6159465e52ce08e3e1dd089bcd01
 import Telegram_icon from '../assets/img/telegram-icon.png'
 
 const Footer: React.FC = () => {
@@ -12,7 +16,10 @@ const Footer: React.FC = () => {
     const [email, setEmail] = useState('')
     const [errMsg, setErrMsg] = useState('')
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f1b2f516983a6159465e52ce08e3e1dd089bcd01
     const handleInputAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setEmail(value);
