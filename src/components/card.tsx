@@ -366,12 +366,12 @@ const StakingCard: React.FC = () => {
                     <div className="w-full md:pt-[80px] pt-[30px] bg-[#4DF6DD]">
                         <div className="space-y-4">
                             <div className="rounded-3xl bg-[#004450] border border-[#D4D4D4] dark:bg-[#FCA311] dark:border-[#202020] mx-auto flex flex-col gap-6 md:px-6 md:py-8 p-6 w-full mb-5 relative">
-                                <div className="text-[#FAFAFA] dark:text-[#004450] font-[400] font-semibold text-light">
+                                <div className="text-[#FAFAFA] dark:text-[#004450] font-[400] font-semibold">
                                     Understanding EVM Staking Epochs
                                 </div>
                                 <div className="flex flex-col md:flex-row gap-6 text-sm text-[#A3A3A3] relative">
                                     <div className="flex-1 md:w-1/2">
-                                        <p className="text-[#FAFAFA] dark:text-[#004450] font-[400] font-semibold text-light">Staking rewards are calculated in 1 day epoch.<br></br>Here's how it works:</p>
+                                        <p className="text-[#FAFAFA] dark:text-[#004450] font-[400] font-semibold">Staking rewards are calculated in 1 day epoch.<br></br>Here's how it works:</p>
                                         <ul className="list-disc dark:text-[#004450] pl-6 font-semibold text-[#FAFAFA]">
                                             <li>Your first epoch begins on the time you stake</li>
                                             <li>Each epoch runs for exactly 1 day</li>
@@ -388,7 +388,7 @@ const StakingCard: React.FC = () => {
                                     </div>
                                     <div className="flex flex-col md:w-1/2 gap-2 font-semibold text-[#FAFAFA] relative z-10">
                                         <div className="flex flex-col">
-                                            <p className="text-black dark:text-[#004450] font-[400] font-semibold text-[#FAFAFA]">Example:</p>
+                                            <p className="dark:text-[#004450] font-[400] font-semibold text-[#FAFAFA]">Example:</p>
                                             <p className="dark:text-[#004450]">If you stake 1,000 BZIL tokens for 30 days on June 10th at 2:00 PM, here's what happens:<br></br>Stake Date: June 10th, 2:00 PM<br></br>Lock Period Ends: July 10th, 2:00 PM (exactly 30 days later)<br></br>Your Reward: 57 BZIL tokens (1,000 × 30 days × 0.19% = 57 BZIL)<br></br>Total When Unstaking: 1,057 BZIL tokens</p>
                                         </div>
                                     </div>

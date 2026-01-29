@@ -101,23 +101,23 @@ const LockDetail: React.FC = () => {
     const isMaximized = days >= MAX_DAYS;
 
     return (
-        <div className="bg-[#FCA311] min-h-screen">
+        <div className="bg-[#4DF6DD] dark:bg-[#FCA311] min-h-screen">
             <div className="max-w-2xl mx-auto px-4 py-8 pt-[140px] ">
                 {/* Header */}
                 <div className="flex items-center gap-3 mb-6">
                     <button 
                         onClick={() => navigate(-1)}
-                        className="text-[#004450] text-xl hover:opacity-70 transition-opacity"
+                        className="text-[#FCA311] dark:text-[#004450] text-xl hover:opacity-70 transition-opacity"
                     >
                         ← 
                     </button>
-                    <h1 className="text-2xl font-bold text-[#004450]">
+                    <h1 className="text-2xl font-bold text-[#FCA311] dark:text-[#004450]">
                         Lock #{id}
                     </h1>
                 </div>
 
                 {/* Description */}
-                <p className="text-[#004450] font-bold text-sm mb-8">
+                <p className="text-[#FCA311] dark:text-[#004450] font-bold text-sm mb-8">
                     Increase your token balance by increasing the lock
                     time of your locked $BZIL
                 </p>
