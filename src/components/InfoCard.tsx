@@ -57,7 +57,7 @@ const InfoCard = ({ disabled, label, value, stakeAction, viewDetail, balance, sh
             </div>
             <div className="flex items-center w-full relative">
                 <div className="w-full">
-                    <div className={`font-bold ${label === 'position' ? 'text-black text-5xl' : 'text-primary text-4xl'}`}>{(label === 'position' && (!data.address || !balance)) ? 'Stake BULLZILLA' : shortNumber(Number(value === '-' ? 0 : value)) + 'BULLZILLA'}</div>
+                    <div className={`font-bold ${label === 'position' ? 'text-[#004450] text-3xl' : 'text-[#004450] dark:text-[#FCA311] text-3xl'}`}>{(label === 'position' && (!data.address || !balance)) ? 'Stake BULLZILLA' : shortNumber(Number(value === '-' ? 0 : value)) + 'BULLZILLA'}</div>
                     <div className={`text-sm font-semibold ${label === 'position' ? 'text-black' : 'text-light'}`}>{label === 'stake' || label == 'canstake' ? '' : shortNumber((Number(value === '-' ? 0 : value))) + ' Positions'}</div>
                 </div>
                 <div className="absolute left-3/4 top-1/2 -translate-x-1/2 -translate-y-1/2">
