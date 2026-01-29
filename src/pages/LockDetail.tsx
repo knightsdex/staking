@@ -101,25 +101,25 @@ const LockDetail: React.FC = () => {
     const isMaximized = days >= MAX_DAYS;
 
     return (
-        <div className="bg-[#0a1628] min-h-screen">
-            <div className="max-w-2xl mx-auto px-4 py-8">
+        <div className="bg-[#FCA311] min-h-screen">
+            <div className="max-w-2xl mx-auto px-4 py-8 pt-[140px] ">
                 {/* Header */}
                 <div className="flex items-center gap-3 mb-6">
                     <button 
                         onClick={() => navigate(-1)}
-                        className="text-white text-xl hover:opacity-70 transition-opacity"
+                        className="text-[#004450] text-xl hover:opacity-70 transition-opacity"
                     >
                         ← 
                     </button>
-                    <h1 className="text-2xl font-bold text-white">
+                    <h1 className="text-2xl font-bold text-[#004450]">
                         Lock #{id}
                     </h1>
                 </div>
 
                 {/* Description */}
-                <p className="text-gray-400 text-sm mb-8">
-                    Increase your veVIRTUAL balance by increasing the lock
-                    time of your locked $VIRTUAL
+                <p className="text-[#004450] font-bold text-sm mb-8">
+                    Increase your token balance by increasing the lock
+                    time of your locked $BZIL
                 </p>
 
                 {/* Main Content Container */}
@@ -219,7 +219,7 @@ const LockDetail: React.FC = () => {
                         onClick={handleExtendLock}
                         className="w-full bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 rounded-lg transition-all"
                     >
-                        Lock $VIRTUAL
+                        Lock $BZIL
                     </button>
                 </div>
             </div>
