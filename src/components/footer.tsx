@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Check, SendHorizonalIcon } from 'lucide-react';
-
-import Watermark from '../assets/img/watermark.png'
-import Youtube_icon from '../assets/img/youtube-icon.png'
+import { SendHorizonalIcon } from 'lucide-react';
 import X_icon from '../assets/img/x-icon.png'
-import Linkedin_icon from '../assets/img/linkedin-icon.png'
-import Instagram_icon from '../assets/img/instagram-icon.png'
-import Facebook_icon from '../assets/img/facebook-icon.png'
-import Reddit_icon from '../assets/img/reddit-icon.png'
-import Discord_icon from '../assets/img/discord-icon.png'
 import Telegram_icon from '../assets/img/telegram-icon.png'
 
 const Footer: React.FC = () => {
@@ -17,10 +9,6 @@ const Footer: React.FC = () => {
     const [isAccepted, setIsAccepted] = useState(false);
     const [email, setEmail] = useState('')
     const [errMsg, setErrMsg] = useState('')
-
-    const handleAcceptTerms = () => {
-        setIsAccepted(!isAccepted);
-    }
 
     const handleInputAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
