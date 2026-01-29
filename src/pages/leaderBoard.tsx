@@ -225,10 +225,10 @@ const LeaderboardTable = () => {
                                             {position.numDays} Days
                                         </div>
                                         <div className="col-span-2 flex items-center">
-                                            {formatNumber(position.amount)} WMTx
+                                            {formatNumber(position.amount)} BZIL
                                         </div>
                                         <div className="col-span-2 flex items-center text-emerald-400">
-                                            {formatNumber(position.reward)} WMTx
+                                            {formatNumber(position.reward)} BZIL
                                         </div>
                                         <div className="col-span-3 flex items-center text-slate-300 text-sm">
                                             {formatDate(position.endTime)}
@@ -273,14 +273,14 @@ const LeaderBoard: React.FC = () => {
     const title = "My Positions";
 
     return (
-        <div className="bg-primary-bg rounded-b-[60px] relative z-[10]">
+        <div className="bg-[#4DF6DD] dark:bg-[#FCA311] rounded-b-[60px] relative z-[10]">
             <div className="w-full 2xl:w-[1280px] 2xl:mx-auto md:px-8 2xl:px-0 px-4 pb-[150px]">
                 {/* Hero Section */}
                 <div className="relative w-full md:pt-[80px] pt-[30px]">
                     {/* Content */}
                     <div className="relative flex flex-col items-start justify-start min-h-lvh text-white z-10 pt-20 gap-3">
                         {/* <div className="md:text-lg text-lg font-bold border border-white text-white rounded-tr-3xl rounded-bl-3xl w-max px-6 py-1 mt-10 mb:mt-20">Leaderboard</div> */}
-                        <div className="text-3xl md:text-5xl mt-5 mb-8 w-full text-primary font-semibold text-center">{title}</div>
+                        <div className="text-3xl md:text-5xl mt-5 mb-8 w-full text-[#FCA311] dark:text-[#4DF6DD] font-semibold text-center">{title}</div>
                         <LeaderboardTable />
                     </div>
                 </div>

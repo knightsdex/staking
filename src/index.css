@@ -66,6 +66,14 @@ html {
     font-style: normal;
 }
 
+@font-face {
+  font-family: "Cherry Bomb One";
+  src: url("https://fonts.gstatic.com/s/cherrybombone/v11/y83DW4od1h6KlV3c6JJhRhGOdhrKCbJV4UaZm3sXy9jN_RPRW5J5Vu-09rA.3.woff2") format("woff2");
+  font-weight: 400; /* or whatever FontDrop shows */
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
     font-family: 'Aeonik-Regular', sans-serif;
 }

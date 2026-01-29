@@ -6,9 +6,9 @@ const HeroSection: React.FC = () => {
         <div className="w-full xl:px-[10%] px-[5%] flex md:flex-row flex-col items-center justify-between h-full min-h-screen text-white z-10 pt-20 gap-20">
             <div className="w-[50%]">
                 <div className="xl:w-[70%]">
-                    <h1 className="text-7xl mt-5 md:mt-20">STAKE WMTx</h1>
+                    <h1 className="text-7xl mt-5 md:mt-20">STAKE BZIL</h1>
                     <p className="mt-4 text-sm md:text-xl md:text-">
-                        Stake your WMTx, earn WMTx to get more allocations in Decentralized Telecommunications
+                        Stake your BZIL, earn BZIL to get more allocations in Decentralized Telecommunications
                     </p>
                 </div>
             </div>

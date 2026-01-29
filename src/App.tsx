@@ -27,7 +27,7 @@ function App() {
 					overlayBlur: 'small',
 				})}
 		>
-			<div className="bg-black">
+			<div className="bg-[#4DF6DD]">
 				<Nav />
 				<Routes>
 					<Route path='/' element={<Home />} />

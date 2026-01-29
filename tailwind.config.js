@@ -4,6 +4,9 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
+      fontFamily: {
+        cherry: ['"Cherry Bomb One"'],
+      },
       screens: {
         '2xl': '1440px'
       },

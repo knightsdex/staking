@@ -3,7 +3,8 @@ import Popover from "./Popover";
 import { shortNumber } from "../pages/leaderBoard";
 import { ConnectWalletButton } from "../utils/lib/connect-button";
 import { useWalletContext } from "../utils/context/walletContext";
-
+import avatar from "../assets/img/svg-export-1x.png";
+import avatar1 from "../assets/img/svg-export-2x.png";
 const InfoCard = ({ disabled, label, value, stakeAction, viewDetail, balance, showPositions }: any) => {
 
     const { data } = useWalletContext();
@@ -26,13 +27,13 @@ const InfoCard = ({ disabled, label, value, stakeAction, viewDetail, balance, sh
     const getHint = () => {
         switch (label) {
             case "position":
-                return "Your positions of WMTx tokens based in your total staked amount and staking duration.";
+                return "Your positions of BZIL tokens based in your total staked amount and staking duration.";
             case "stake":
                 return "Total balance of your wallet";
             case "canstake":
-                return "Your available amount of WMTx to stake. It is just your wallet balance of WMTx";
+                return "Your available amount of BZIL to stake. It is just your wallet balance of BZIL";
             case "canunstake":
-                return "Your available amount of WMTx to unstake. It is just amount of your staked WMTx tokens";
+                return "Your available amount of BZIL to unstake. It is just amount of your staked BZIL tokens";
             default:
                 return "Coming soon !";
         }
@@ -43,7 +44,7 @@ const InfoCard = ({ disabled, label, value, stakeAction, viewDetail, balance, sh
     }
 
     return (
-        <div className={`rounded-3xl ${label === 'position' ? 'bg-[#fff533]' : 'bg-[#4a4943]'} mx-auto flex flex-col gap-6 md:px-6 md:py-8 p-6 w-full`}>
+        <div className={`rounded-3xl ${label === 'position' ? 'bg-[#fff533]' : 'bg-[#FCA311] dark:bg-[#121212]'} mx-auto flex flex-col gap-6 md:px-6 md:py-8 p-6 w-full`}>
             <div className="flex flex-row justify-between items-center">
                 <div className={`${label === 'position' ? 'text-black' : 'text-primary'} font-[400]`}>{getTitle()}</div>
                 <Popover
@@ -54,9 +55,18 @@ const InfoCard = ({ disabled, label, value, stakeAction, viewDetail, balance, sh
                 </Popover>
 
             </div>
-            <div>
-                <div className={`font-bold ${label === 'position' ? 'text-black text-5xl' : 'text-primary text-4xl'}`}>{(label === 'position' && (!data.address || !balance)) ? 'Stake WMTx' : shortNumber(Number(value === '-' ? 0 : value)) + 'WMTx'}</div>
-                <div className={`text-sm font-semibold ${label === 'position' ? 'text-black' : 'text-light'}`}>{label === 'stake' || label == 'canstake' ? '' : shortNumber((Number(value === '-' ? 0 : value))) + ' Positions'}</div>
+            <div className="flex items-center w-full relative">
+                <div className="w-full">
+                    <div className={`font-bold ${label === 'position' ? 'text-black text-5xl' : 'text-primary text-4xl'}`}>{(label === 'position' && (!data.address || !balance)) ? 'Stake BZIL' : shortNumber(Number(value === '-' ? 0 : value)) + 'BZIL'}</div>
+                    <div className={`text-sm font-semibold ${label === 'position' ? 'text-black' : 'text-light'}`}>{label === 'stake' || label == 'canstake' ? '' : shortNumber((Number(value === '-' ? 0 : value))) + ' Positions'}</div>
+                </div>
+                <div className="absolute left-3/4 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <img 
+                        src={label === 'position' ? avatar : avatar1} 
+                        alt="Logo" 
+                        className="w-[100px] h-[100px] object-contain" 
+                    />
+                </div>
             </div>
             <div className="flex md:flex-row flex-col gap-4">
                 {
