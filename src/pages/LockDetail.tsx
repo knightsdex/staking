@@ -186,7 +186,7 @@ const LockDetail: React.FC = () => {
                         </p>
                         
                         <p className="text-gray-400 text-sm">
-                            At maximum lock duration, you receive full (1:1) reward token based on the amount of tokens locked.
+                            At maximum lock duration, you receive full reward token(70% APY) based on the amount of tokens locked.
                         </p>
                     </div>
 

@@ -78,7 +78,6 @@ const PosModal: React.FC<PosModalProps> = ({ isOpen, onClose, positions, handleU
 
                 {/* Content */}
                 <div className="p-8">
-                    <h3 className="text-xl font-semibold text-white mb-6">Positions</h3>
 
                     {positions.length === 0 ? (
                         <div className="text-center py-8 text-slate-400">

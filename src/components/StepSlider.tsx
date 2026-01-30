@@ -28,7 +28,6 @@ export default function LockDaysSlider({
   const progressPercent =
     ((numDays - MIN_DAYS) / (MAX_DAYS - MIN_DAYS)) * 100;
 
-  const multiplier = (numDays / MAX_DAYS).toFixed(2);
 
   return (
     <div className="w-full max-w-[720px] bg-[#0b1220] p-6 rounded-xl text-white">
@@ -36,9 +35,6 @@ export default function LockDaysSlider({
       <p className="text-sm text-gray-300 mb-4">
         Lock for{" "}
         <span className="text-white font-medium">{numDays} Days</span>{" "}
-        for a{" "}
-        <span className="text-white font-medium">{multiplier}x</span>{" "}
-        multiplier
       </p>
 
       {/* Slider */}
