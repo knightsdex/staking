@@ -14,12 +14,12 @@ const faqData: FaqItem[] = [
         answer: 'Yes, there is a lock period. Your tokens are completely locked until the staking period ends. You cannot withdraw early under any circumstances. You can extend your lock period.'
     },
     {
-        question: 'What can I use my BULLZILLA for?',
-        answer: 'You can use your BULLZILLA to participate in staking, governance, or trading within the ecosystem.'
+        question: 'What can I use my CRABMAN for?',
+        answer: 'You can use your CRABMAN to participate in staking, governance, or trading within the ecosystem.'
     },
     {
-        question: 'How do I earn BULLZILLA by staking BULLZILLA, and what is the maximum I can earn?',
-        answer: 'By staking your BULLZILLA, you earn additional BULLZILLA based on the staking contract’s rewards rate. The maximum you can earn depends on the staking terms.'
+        question: 'How do I earn CRABMAN by staking CRABMAN, and what is the maximum I can earn?',
+        answer: 'By staking your CRABMAN, you earn additional CRABMAN based on the staking contract’s rewards rate. The maximum you can earn depends on the staking terms.'
     }
 ];
 

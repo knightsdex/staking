@@ -85,10 +85,10 @@ const Footer: React.FC = () => {
                         <div className='space-y-6'>
                             <div className='text-[18px] font-semibold'>Follow us</div>
                             <div className='flex flex-row md:gap-6 justify-between md:justify-start'>
-                                <a href="https://x.com/BullzillaERC/" target="_blank" rel="noopener noreferrer">
+                                <a href="https://x.com/CRABMANERC/" target="_blank" rel="noopener noreferrer">
                                     <img src={X_icon} alt='social-icon' />
                                 </a>
-                                <a href="https://t.me/BullzillaERC" target="_blank" rel="noopener noreferrer">
+                                <a href="https://t.me/CRABMANERC" target="_blank" rel="noopener noreferrer">
                                     <img src={Telegram_icon} alt='social-icon' />
                                 </a>
                             </div>

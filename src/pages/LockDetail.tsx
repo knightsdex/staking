@@ -119,7 +119,7 @@ const LockDetail: React.FC = () => {
                 {/* Description */}
                 <p className="text-[#FCA311] dark:text-[#004450] font-bold text-sm mb-8">
                     Increase your token balance by increasing the lock
-                    time of your locked $BULLZILLA
+                    time of your locked $CRABMAN
                 </p>
 
                 {/* Main Content Container */}
@@ -219,7 +219,7 @@ const LockDetail: React.FC = () => {
                         onClick={handleExtendLock}
                         className="w-full bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 rounded-lg transition-all"
                     >
-                        Lock $BULLZILLA
+                        Lock $CRABMAN
                     </button>
                 </div>
             </div>
