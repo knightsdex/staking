@@ -163,6 +163,9 @@ const Nav: React.FC = () => {
 						>
 							Leaderboard
 						</Link>
+						<Link to="/transactionboard" className={`hover:border-b hover:border-b-primary text-sm ${isActive("/transactionBoard") ? "border-b border-b-primary" : ""}`}>
+						Transactions
+						</Link>
 						<div className={`flex flex-row justify-between items-center px-8 h-[64px] rounded-xl !mt-12 bg-card-bg`}>
 							<div className="flex flex-row space-x-4">
 								{isDarkMode ? <MoonIcon /> : <SunIcon />}
