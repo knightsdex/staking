@@ -117,17 +117,10 @@ const PosModal: React.FC<PosModalProps> = ({ isOpen, onClose, positions, handleU
                                                     {position.numDays} Days
                                                 </div>
                                                 <div className="col-span-2 flex items-center">
-<<<<<<< HEAD
-                                                    {formatNumber(position.amount)}
-                                                </div>
-                                                <div className="col-span-2 flex items-center text-emerald-400">
-                                                    {formatNumber(position.reward)}
-=======
                                                     {formatNumber(position.amount)} CRABMAN
                                                 </div>
                                                 <div className="col-span-2 flex items-center text-emerald-400">
                                                     {formatNumber(position.reward)} CRABMAN
->>>>>>> bb89be4c256a0803bce6da6c972861842c42bd23
                                                 </div>
                                                 <div className="col-span-3 flex items-center text-slate-300 text-sm">
                                                     {formatDate(position.endTime)}

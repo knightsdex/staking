@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import Watermark from '../assets/img/watermark.png';
 import Web3 from "web3";
 
 import tokenABI from '../utils/abis/token.json';
 
 import Logo_white from "../assets/img/logo-white.png";
-import Logo_black from "../assets/img/watermark1.png";
 import { ConnectWalletButton } from "../utils/lib/connect-button";
 import { MoonIcon, SunIcon, WalletIcon } from "lucide-react";
 import { useWalletContext } from "../utils/context/walletContext";

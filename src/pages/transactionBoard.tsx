@@ -543,7 +543,7 @@ const TransactionTable = () => {
         });
 
         return Array.from(userMap.entries())
-            .map(([address, info]) => ({
+            .map(([, info]) => ({
                 address: info.originalAddress,
                 stakeCount: info.count,
                 totalReward: info.totalReward,
