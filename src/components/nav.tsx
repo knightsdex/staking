@@ -138,6 +138,12 @@ const Nav: React.FC = () => {
 						}`}>
 						Positions
 					</Link>
+					<Link to="/transactionboard" className={`hover:border-b hover:border-b-primary text-sm ${isActive("/transactionBoard") ? "border-b border-b-primary" : ""
+
+						}`}>
+						Transactions
+					</Link>
+					
 					<div
 						onClick={handleDark}
 						className="border border-[#525252] rounded-full p-2 cursor-pointer"

@@ -8,6 +8,7 @@ import Home from "./pages/home";
 import LeaderBoard from "./pages/leaderBoard";
 import { useWalletContext } from "./utils/context/walletContext";
 import LockDetail from "./pages/LockDetail";
+import TransactionBoard from "./pages/transactionBoard";
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
 					<Route path='/' element={<Home />} />
 					<Route path='/leaderboard' element={<LeaderBoard />} />
 					<Route path='/lock/:id' element={<LockDetail />} />
+					<Route path='/transactionboard' element={<TransactionBoard />} />
 				</Routes>
 				<Footer />
 			</div>

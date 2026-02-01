@@ -1,19 +1,28 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
-export const GET_TOP_STAKERS = gql`
-  query GetTopStakers {
-    stakers(
-      first: 30,
-      orderBy: currentlyStaked,
-      orderDirection: desc
-    ) {
+export const GET_STAKING_TRANSACTIONS = gql`
+  query GetStakingTransactions($first: Int = 100, $skip: Int = 0) {
+    stakeds(first: $first, skip: $skip, orderBy: blockTimestamp, orderDirection: desc) {
       id
-      address
-      totalStaked
-      totalUnstaked
-      currentlyStaked
-      createdAt
-      updatedAt
+      user
+      internal_id
+      amount
+      numDays
+      endTime
+      blockNumber
+      blockTimestamp
+      transactionHash
+    }
+    withdrawns(first: $first, skip: $skip, orderBy: blockTimestamp, orderDirection: desc) {
+      id
+      user
+      internal_id
+      stakedAmount
+      reward
+      totalAmount
+      blockNumber
+      blockTimestamp
+      transactionHash
     }
   }
 `;

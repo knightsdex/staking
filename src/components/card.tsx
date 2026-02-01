@@ -121,7 +121,8 @@ const StakingCard: React.FC = () => {
             const tokenContract = new web3.eth.Contract(tokenABI, tokenContractAddress);
 
             const tokenBalance: any = await tokenContract.methods.balanceOf(data.address).call();
-            const formattedBalance = web3.utils.fromWei(tokenBalance, "ether"); // Convert from Wei to Ether for readability
+            // const decimals = await tokenContract.methods.decimals().call();
+            const formattedBalance = web3.utils.fromWei(tokenBalance, "ether");
             setBalance(formattedBalance);
             const positionCount: any = await stakingContract.methods.numPositions(data.address).call();
             setposCount(positionCount)
@@ -133,14 +134,14 @@ const StakingCard: React.FC = () => {
                     let reward = "0";
                     try {
                         const rawReward: any = await stakingContract.methods.calculateReward(data.address, pos[0]).call();
-                        reward = web3.utils.fromWei(rawReward, 'ether');
+                        reward = web3.utils.fromWei(rawReward, "ether");
                     } catch (error) {
                         console.error(`Error calculating reward for position ${pos[0]}:`, error);
                     }
 
                     return {
                         id: pos[0].toString(),
-                        amount: web3.utils.fromWei(pos[1].toString(), "ether"),
+                        amount: web3.utils.fromWei(pos[1], "ether"),
                         startTime: pos[2].toString(),
                         endTime: pos[3].toString(),
                         numDays: pos[4].toString(),
@@ -218,7 +219,6 @@ const StakingCard: React.FC = () => {
 
             const stakingContract = new web3.eth.Contract(contractABI, contractAddress);
             const tokenContract = new web3.eth.Contract(tokenABI, tokenContractAddress);
-
             const stakeAmount = web3.utils.toWei(amount, "ether");
 
             // Approve the staking contract to spend tokens
@@ -237,6 +237,7 @@ const StakingCard: React.FC = () => {
             });
             setAmount(''); // Reset the input field
             setIsMax(false)
+            fetchStakingData();
         } catch (error) {
             console.error("Error during staking:", error);
             setErr({
@@ -396,20 +397,20 @@ const StakingCard: React.FC = () => {
                             </div>
                         </div>
                         <div className="space-y-6">
-                            <InfoCard disabled={!data?.address} label='position' value={posCount} viewDetail={`https://etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} stakeAction={handleStakeAction} showPositions = {handleShowPosition} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
-                            <InfoCard disabled={!data?.address} label='stake' value={balance} viewDetail={`https://etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} stakeAction={handleStakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
+                            <InfoCard disabled={!data?.address} label='position' value={posCount} viewDetail={`https://sepolia.etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} stakeAction={handleStakeAction} showPositions = {handleShowPosition} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
+                            <InfoCard disabled={!data?.address} label='stake' value={balance} viewDetail={`https://sepolia.etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} stakeAction={handleStakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
                             
                             {/* <div className="flex lg:hidden lg:flex-row flex-col gap-6">
                                 <div className="flex md:flex-row flex-col gap-6">
-                                    <InfoCard disabled={!data?.address} label='stake' value={stakeAmount} viewDetail={`https://etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} stakeAction={handleStakeAction} unstakeAction={handleUnstakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
-                                    <InfoCard disabled={!data?.address} label='duration' value={stakingDuration} viewDetail={`https://etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} />
+                                    <InfoCard disabled={!data?.address} label='stake' value={stakeAmount} viewDetail={`https://sepolia.etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} stakeAction={handleStakeAction} unstakeAction={handleUnstakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
+                                    <InfoCard disabled={!data?.address} label='duration' value={stakingDuration} viewDetail={`https://sepolia.etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} />
                                 </div>
-                                <InfoCard disabled={!data?.address} label='balance' value={balance} viewDetail={`https://etherscan.io/address/${data?.address}`} stakeAction={handleStakeAction} unstakeAction={handleUnstakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
+                                <InfoCard disabled={!data?.address} label='balance' value={balance} viewDetail={`https://sepolia.etherscan.io/address/${data?.address}`} stakeAction={handleStakeAction} unstakeAction={handleUnstakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
                             </div>
                             <div className="hidden lg:flex lg:flex-row gap-6">
-                                <InfoCard disabled={!data?.address} label='stake' value={stakeAmount} viewDetail={`https://etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} stakeAction={handleStakeAction} unstakeAction={handleUnstakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
-                                <InfoCard disabled={!data?.address} label='duration' value={stakingDuration} viewDetail={`https://etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} />
-                                <InfoCard disabled={!data?.address} label='balance' value={balance} viewDetail={`https://etherscan.io/address/${data?.address}`} stakeAction={handleStakeAction} unstakeAction={handleUnstakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
+                                <InfoCard disabled={!data?.address} label='stake' value={stakeAmount} viewDetail={`https://sepolia.etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} stakeAction={handleStakeAction} unstakeAction={handleUnstakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
+                                <InfoCard disabled={!data?.address} label='duration' value={stakingDuration} viewDetail={`https://sepolia.etherscan.io/address/${import.meta.env.VITE_STAKE_CA}#tokentxns`} />
+                                <InfoCard disabled={!data?.address} label='balance' value={balance} viewDetail={`https://sepolia.etherscan.io/address/${data?.address}`} stakeAction={handleStakeAction} unstakeAction={handleUnstakeAction} staked={stakeAmount !== '-' && Number(stakeAmount) !== 0} />
                             </div> */}
                         </div>
                     </div>
