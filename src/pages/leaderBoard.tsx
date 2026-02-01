@@ -225,10 +225,10 @@ const LeaderboardTable = () => {
                                             {position.numDays} Days
                                         </div>
                                         <div className="col-span-2 flex items-center">
-                                            {formatNumber(position.amount)} BULLZILLA
+                                            {formatNumber(position.amount)} CRABMAN
                                         </div>
                                         <div className="col-span-2 flex items-center text-emerald-400">
-                                            {formatNumber(position.reward)} BULLZILLA
+                                            {formatNumber(position.reward)} CRABMAN
                                         </div>
                                         <div className="col-span-3 flex items-center text-slate-300 text-sm">
                                             {formatDate(position.endTime)}
@@ -273,7 +273,7 @@ const LeaderBoard: React.FC = () => {
     const title = "My Positions";
 
     return (
-        <div className="bg-[#4DF6DD] dark:bg-[#FCA311] rounded-b-[60px] relative z-[10]">
+        <div className="bg-[#00e0ff] dark:bg-[#FCA311] rounded-b-[60px] relative z-[10]">
             <div className="w-full 2xl:w-[1280px] 2xl:mx-auto md:px-8 2xl:px-0 px-4 pb-[150px]">
                 {/* Hero Section */}
                 <div className="relative w-full md:pt-[80px] pt-[30px]">

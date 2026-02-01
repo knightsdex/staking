@@ -52,7 +52,7 @@ const Nav: React.FC = () => {
 	}
 
 	return (
-		<header className="flex flex-col fixed top-0 z-[50] text-primary bg-white dark:bg-[#004450] w-full">
+		<header className="flex flex-col fixed top-0 z-[50] text-primary bg-[#ff9f47] dark:bg-[#004450] w-full">
 			{/* Left side: Logo and Company Name */}
 			<div className="border-b border-b-light-border">
 				<div className="flex flex-row justify-between items-center 2xl:w-[1280px] 2xl:mx-auto md:px-8 2xl:px-0 px-4 h-[60px]">
@@ -64,19 +64,7 @@ const Nav: React.FC = () => {
 									<img src={Logo_white} alt="Logo" className="w-[40px]" />
 							}
 							<div className="text-primary font-cherry font-bold text-2xl"> 
-							{ 
-							isDarkMode ?
-								<img
-									src={Watermark}
-									alt="watermark"
-									className="w-15 h-8"   // 👈 adjust size here
-								/>:
-								<img
-									src={Logo_black}
-									alt="watermark"
-									className="w-15 h-8"   // 👈 adjust size here
-								/>
-							}
+								Crab Man by Matt Furie
 							</div>
 						</div>
 					</Link>
@@ -160,7 +148,7 @@ const Nav: React.FC = () => {
 			{isMenuOpen && (
 				<div className="absolute top-[60px] left-0 w-full bg-primary-bg z-50 h-[calc(100vh-60px)] flex flex-col justify-between py-8 px-4">
 					<nav className="flex flex-col space-y-6 pb-8">
-						<div className="text-xl">Stake BULLZILLA</div>
+						<div className="text-xl">Stake CRABMAN</div>
 						<Link
 							to="/"
 							className={`text-xl hover:text-gray-300 pl-4 ${isActive("/") ? "" : ""
@@ -198,7 +186,7 @@ const Nav: React.FC = () => {
 						<div className={`px-8 py-4 h-[76px] rounded-xl  flex flex-row gap-4 bg-card-bg`}>
 							<WalletIcon />
 							<div className="flex flex-col">
-								<div className=" text-lg font-bold">{shortNumber(balance)} BULLZILLA</div>
+								<div className=" text-lg font-bold">{shortNumber(balance)} CRABMAN</div>
 								<div className="text-sm text-light">Wallet balance</div>
 							</div>
 						</div>

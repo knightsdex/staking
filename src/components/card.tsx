@@ -11,7 +11,6 @@ import InfoCard from "./InfoCard";
 import Modal from "./Modal";
 import PosModal from "./PosModal";
 import Alert from "./Alert";
-import avatar from "../assets/img/svg-export-3x.png"
 // import WMT_video from '../assets/wmt.mp4'
 
 
@@ -362,11 +361,11 @@ const StakingCard: React.FC = () => {
 
     return (
         <>
-            <div className="w-full bg-[#4DF6DD] relative z-[10]">
+            <div className="leading-none min-h-screen min-w-[320px] overflow-x-hidden break-words bg-[#1e303c]">
                 <div className="w-full 2xl:w-[1280px] 2xl:mx-auto md:px-8 2xl:px-0 px-4 text-primary pt-20 pb-12 gap-20">
-                    <div className="w-full md:pt-[80px] pt-[30px] bg-[#4DF6DD]">
+                    <div className="w-full md:pt-[80px] pt-[30px] bg-[#1e303c]">
                         <div className="space-y-4">
-                            <div className="rounded-3xl bg-[#004450] border border-[#D4D4D4] dark:bg-[#FCA311] dark:border-[#202020] mx-auto flex flex-col gap-6 md:px-6 md:py-8 p-6 w-full mb-5 relative">
+                            <div className="rounded-3xl bg-[#004450] border border-[#00e0ff] dark:bg-[#ff9f47] dark:border-[#00e0ff] mx-auto flex flex-col gap-6 md:px-6 md:py-8 p-6 w-full mb-5 relative">
                                 <div className="text-[#FAFAFA] dark:text-[#004450] font-[400] font-semibold">
                                     Understanding EVM Staking Epochs
                                 </div>
@@ -380,17 +379,10 @@ const StakingCard: React.FC = () => {
                                             <li>APY(Annual Percentage Yield) : 70%</li>
                                         </ul>
                                     </div>
-                                    <div className="absolute left-[39%] top-1/2 -translate-x-1/2 -translate-y-1/2 md:block hidden z-0">
-                                        <img 
-                                            src={avatar} 
-                                            alt="Avatar" 
-                                            className="w-[100px] h-[100px] object-contain" 
-                                        />
-                                    </div>
                                     <div className="flex flex-col md:w-1/2 gap-2 font-semibold text-[#FAFAFA] relative z-10">
                                         <div className="flex flex-col">
                                             <p className="dark:text-[#004450] font-[400] font-semibold text-[#FAFAFA]">Example:</p>
-                                            <p className="dark:text-[#004450]">If you stake 1,000 BULLZILLA tokens for 30 days on June 10th at 2:00 PM, here's what happens:<br></br>Stake Date: June 10th, 2:00 PM<br></br>Lock Period Ends: July 10th, 2:00 PM (exactly 30 days later)<br></br>Your Reward: 57 BULLZILLA tokens (1,000 × 30 days × 0.19% = 57 BULLZILLA)<br></br>Total When Unstaking: 1,057 BULLZILLA tokens</p>
+                                            <p className="dark:text-[#004450]">If you stake 1,000 CRABMAN tokens for 30 days on June 10th at 2:00 PM, here's what happens:<br></br>Stake Date: June 10th, 2:00 PM<br></br>Lock Period Ends: July 10th, 2:00 PM (exactly 30 days later)<br></br>Your Reward: 57 CRABMAN tokens (1,000 × 30 days × 0.19% = 57 CRABMAN)<br></br>Total When Unstaking: 1,057 CRABMAN tokens</p>
                                         </div>
                                     </div>
                                 </div>
@@ -417,7 +409,7 @@ const StakingCard: React.FC = () => {
                 </div>
             </div>
             <Modal isOpen={modalStatus} onClose={handleCloseModal}>
-                <h2 className="text-xl font-semibold text-primary">{activeTab === 'stake' ? 'Stake BULLZILLA' : 'Unstake BULLZILLA'}</h2>
+                <h2 className="text-xl font-semibold text-primary">{activeTab === 'stake' ? 'Stake CRABMAN' : 'Unstake CRABMAN'}</h2>
                 <InfoCard label={activeTab === 'stake' ? 'canstake' : 'canunstake'} value={activeTab === 'stake' ? balance : stakeAmount} />
                 <div className="flex flex-col w-full gap-1">
                     <div className="text-primary">Amount to {activeTab === 'stake' ? 'stake' : 'unstake'}</div>
@@ -432,7 +424,7 @@ const StakingCard: React.FC = () => {
                             pattern="\d*\.?\d*"
                         />
                         <div className="flex flex-row gap-2 items-center">
-                            <div className="text-primary">BULLZILLA</div>
+                            <div className="text-primary">CRABMAN</div>
                             <button disabled={(activeTab === 'stake' && (balance === '0' || balance === '-')) || (activeTab === 'unstake' && (stakeAmount === '0' || stakeAmount === '-'))} onClick={handleMax} className="text-black px-3 py-[1px] bg-[#fff533] rounded-2xl cursor-pointer disabled:cursor-not-allowed disabled:bg-[#5b5b5b] text-sm">
                                 {
                                     isMax ? 'Clear' : 'Max'
@@ -464,7 +456,7 @@ const StakingCard: React.FC = () => {
                     data.address ?
                         <button className={`rounded-3xl py-2 px-4 text-[16px] bg-[#fff533] text-black hover:text-[#5b5b5b] font-bold flex flex-row items-center justify-center gap-1 w-max`} onClick={handleStake}>
                             <div>
-                                {activeTab === 'stake' ? 'Stake BULLZILLA' : 'Unstake BULLZILLA'}
+                                {activeTab === 'stake' ? 'Stake CRABMAN' : 'Unstake CRABMAN'}
                             </div>
                         </button> :
                         <div className="flex items-center justify-center w-full">
